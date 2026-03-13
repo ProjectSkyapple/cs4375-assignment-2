@@ -142,6 +142,7 @@ class NeuralNet:
             return model
 
         for activation in activations:
+            print(f"Training models with activation: {activation}... Please wait.")
             for lr in learning_rate:
                 for epochs in max_iterations:
                     for n_hidden in num_hidden_layers:
@@ -151,6 +152,7 @@ class NeuralNet:
                             y_train,
                             validation_split=0.2,
                             epochs=epochs,
+                            verbose=0
                         )
                         test_loss, test_acc = model.evaluate(X_test, y_test)
 
@@ -207,6 +209,6 @@ class NeuralNet:
 
 
 if __name__ == "__main__":
-    neural_network = NeuralNet("adult.data") # put in path to your file
+    neural_network = NeuralNet("https://raw.githubusercontent.com/ProjectSkyapple/cs4375-assignment-2/refs/heads/main/adult.data") # put in path to your file
     neural_network.preprocess()
     neural_network.train_evaluate()
