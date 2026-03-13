@@ -133,7 +133,7 @@ class NeuralNet:
             model.add(tf.keras.layers.Input(shape=(input_dim,)))
             for _ in range(num_hidden):
                 model.add(tf.keras.layers.Dense(64, activation=activation))
-            model.add(tf.keras.layers.Dense(1, activation=activation))
+            model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
             model.compile(
                 optimizer=tf.keras.optimizers.Adam(learning_rate=lr),
                 loss='binary_crossentropy',
