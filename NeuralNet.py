@@ -181,22 +181,26 @@ class NeuralNet:
                             f"test_loss={test_loss:.4f} test_acc={test_acc:.4f}"
                         )
 
+        print(histories)
+        
         # Plot the model history for each model in a single plot
         # model history is a plot of accuracy vs number of epochs
         # you may want to create a large sized plot to show multiple lines
         # in a same figure.
         
-        plt.figure(figsize=(12, 8))
-        for name, hist in histories:
-            plt.plot(hist.history['accuracy'], label=f"{name}-train")
-            # plt.plot(hist.history['val_accuracy'], linestyle='--', label=f"{name}-val")
-        plt.xlabel("Epoch")
-        plt.ylabel("Accuracy")
-        plt.legend(fontsize='x-small', ncol=2, bbox_to_anchor=(1.05, 1))
-        plt.title("Training Accuracy")
+        plt.figure(figsize=(12, 36))
+        for i, act in enumerate(activations, start=1):
+            ax = plt.subplot(3, 1, i)
+            for name, hist in histories:
+                if name.startswith(act + '-'):
+                    ax.plot(hist.history['accuracy'], label=f"{name}-train")
+                    # ax.plot(hist.history['val_accuracy'], linestyle='--', label=f"{name}-val")
+            ax.set_title(f"Training accuracy ({act})")
+            ax.set_xlabel("Epoch")
+            ax.set_ylabel("Accuracy")
+            ax.legend(fontsize='x-small', ncol=2, loc='upper left')
         plt.tight_layout()
         plt.show()
-
         return 0
 
 
